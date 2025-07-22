@@ -69,14 +69,14 @@ const RegisterUser = () => {
     }
   }
   const [formData, setFormData] = useState({
-    fullName: "Ayush",
-    username: "ayush",
-    email: "ayushsao32@gmail.com",
-    mobile: "9693367483",
+    fullName: "",
+    username: "",
+    email: "",
+    mobile: "",
     dateOfBirth: "",
-    gender: "MALE",
+    gender: "",
     mobileVisibility: true,
-    whoYouAre: "NEED ROOM WITH ROOMMATE",
+    whoYouAre: "",
     avatar: 1,
     password: "",
     confirmPassword: "",
@@ -177,7 +177,7 @@ const RegisterUser = () => {
                 <input
                   className="w-full mt-2 rounded-md border bg-white px-2 py-3 outline-none ring-[#FE797A] focus:ring-1"
                   type="text"
-                  placeholder="Ayush"
+                  placeholder="Enter your full name"
                   name="fullName"
                   value={formData.fullName}
                   onChange={handleChange}
@@ -189,7 +189,7 @@ const RegisterUser = () => {
                 <input
                   className="w-full mt-2 rounded-md border bg-white px-2 py-3 outline-none ring-[#FE797A] focus:ring-1"
                   type="text"
-                  placeholder="@ayush"
+                  placeholder="@username"
                   name="username"
                   value={formData.username}
                   onChange={handleChange}
@@ -201,7 +201,7 @@ const RegisterUser = () => {
                 <input
                   className="w-full mt-2 rounded-md border bg-white px-2 py-3 outline-none ring-[#FE797A] focus:ring-1"
                   type="text"
-                  placeholder="ayushsao32@gmail.com"
+                  placeholder="your.email@example.com"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
@@ -213,7 +213,7 @@ const RegisterUser = () => {
                 <input
                   className="w-full mt-2 rounded-md border bg-white px-2 py-3 outline-none ring-[#FE797A] focus:ring-1"
                   type="text"
-                  placeholder="9693367483"
+                  placeholder="Enter your mobile number"
                   name="mobile"
                   value={formData.mobile}
                   onChange={handleChange}
