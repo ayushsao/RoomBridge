@@ -17,11 +17,23 @@ export const registerUser = async (req, res, next) => {
 
   const referralUserId = req.query.referral;
   console.log(referralUserId);
+  
   try {
-    const userExists = await User.findOne({ email,username });
+    // Check if user exists with email or username separately
+    const existingUserByEmail = await User.findOne({ email });
+    const existingUserByUsername = await User.findOne({ username });
 
-    if (userExists) {
+    if (existingUserByEmail) {
       return next(new ErrorHandler(400, "User already exists with this email"));
+    }
+
+    if (existingUserByUsername) {
+      return next(new ErrorHandler(400, "Username is already taken"));
+    }
+
+    // Validate required fields
+    if (!username || !email || !password || !full_name || !mobile_number) {
+      return next(new ErrorHandler(400, "Please provide all required fields"));
     }
 
     const user = await User.create({
@@ -30,7 +42,7 @@ export const registerUser = async (req, res, next) => {
       password_hash: password,
       full_name,
       mobile_number,
-      mobile_visibility,
+      mobile_visibility: mobile_visibility !== undefined ? mobile_visibility : true,
       gender,
       date_of_birth,
       profile_picture_url,
@@ -38,12 +50,15 @@ export const registerUser = async (req, res, next) => {
 
     if (referralUserId) {
       const referrer = await User.findById(referralUserId);
-      console.log(referrer);
-      referrer.rewards += 10;
-      await referrer.save();
+      if (referrer) {
+        referrer.rewards += 10;
+        await referrer.save();
+      }
     }
+    
     sendTokenResponse(user, 201, res);
   } catch (error) {
+    console.error("Registration error:", error);
     next(error);
   }
 };

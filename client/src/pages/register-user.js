@@ -94,24 +94,62 @@ const RegisterUser = () => {
     let id = toast.loading("Registering...");
     e.preventDefault();
 
+    // Form validation
+    if (!formData.fullName.trim()) {
+      toast.error("Full name is required", { id });
+      return;
+    }
+
+    if (!formData.username.trim()) {
+      toast.error("Username is required", { id });
+      return;
+    }
+
+    if (!formData.email.trim()) {
+      toast.error("Email is required", { id });
+      return;
+    }
+
+    if (!formData.mobile.trim()) {
+      toast.error("Mobile number is required", { id });
+      return;
+    }
+
+    if (!formData.password.trim()) {
+      toast.error("Password is required", { id });
+      return;
+    }
+
+    if (!formData.gender) {
+      toast.error("Please select your gender", { id });
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
+      toast.error("Passwords do not match!", { id });
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      toast.error("Password must be at least 6 characters long", { id });
       return;
     }
 
     try {
       const transformedData = {
-        username: formData.username,
-        email: formData.email,
+        username: formData.username.trim(),
+        email: formData.email.trim().toLowerCase(),
         password: formData.password,
-        full_name: formData.fullName,
-        mobile_number: formData.mobile,
+        full_name: formData.fullName.trim(),
+        mobile_number: formData.mobile.trim(),
         mobile_visibility: formData.mobileVisibility,
         gender: formData.gender,
-        date_of_birth: formData.dateOfBirth,
+        date_of_birth: formData.dateOfBirth || null,
         profile_picture_url: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQekcrL1wdy13S8K9V7nqZ1UYhlAJzNsz1ilyH02U9dSw&s`,
       };
-      console.log(transformedData);
+      
+      console.log("Sending data:", transformedData);
+      
       const response = await fetch(
         "https://roombridge-api.vercel.app/api/v1/user/register",
         {
@@ -123,14 +161,12 @@ const RegisterUser = () => {
         }
       );
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
+      const data = await response.json();
+      console.log("Response:", data);
 
-        if (data.success) {
-          localStorage.setItem("token", data.token);
-        }
-
+      if (response.ok && data.success) {
+        localStorage.setItem("token", data.token);
+        
         setFormData({
           fullName: "",
           username: "",
@@ -138,16 +174,26 @@ const RegisterUser = () => {
           mobile: "",
           dateOfBirth: "",
           gender: "",
-          mobileVisibility: "",
-          avatar: "",
+          mobileVisibility: true,
+          whoYouAre: "",
+          avatar: 1,
           password: "",
           confirmPassword: "",
         });
 
         navigate("/");
-        toast.success("User registered successfully", { id });
+        toast.success("User registered successfully!", { id });
       } else {
-        toast.error("Error registering User.", { id });
+        // Handle specific error messages from server
+        const errorMessage = data.message || data.error || "Error registering user";
+        toast.error(errorMessage, { id });
+        console.error("Registration error:", data);
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+      toast.error("Network error. Please check your connection and try again.", { id });
+    }
+  };
       }
     } catch (error) {
       console.log(error);
@@ -181,6 +227,7 @@ const RegisterUser = () => {
                   name="fullName"
                   value={formData.fullName}
                   onChange={handleChange}
+                  required
                 />
               </label>
 
@@ -193,6 +240,7 @@ const RegisterUser = () => {
                   name="username"
                   value={formData.username}
                   onChange={handleChange}
+                  required
                 />
               </label>
 
@@ -200,11 +248,12 @@ const RegisterUser = () => {
                 <p className="text-gray-600">Email</p>
                 <input
                   className="w-full mt-2 rounded-md border bg-white px-2 py-3 outline-none ring-[#FE797A] focus:ring-1"
-                  type="text"
+                  type="email"
                   placeholder="your.email@example.com"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
+                  required
                 />
               </label>
 
@@ -212,11 +261,12 @@ const RegisterUser = () => {
                 <p className="text-gray-600">Mobile Number</p>
                 <input
                   className="w-full mt-2 rounded-md border bg-white px-2 py-3 outline-none ring-[#FE797A] focus:ring-1"
-                  type="text"
+                  type="tel"
                   placeholder="Enter your mobile number"
                   name="mobile"
                   value={formData.mobile}
                   onChange={handleChange}
+                  required
                 />
               </label>
 
@@ -407,6 +457,8 @@ const RegisterUser = () => {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
+                    required
+                    minLength={6}
                   />
                 </label>
 
@@ -419,6 +471,8 @@ const RegisterUser = () => {
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
+                    required
+                    minLength={6}
                   />
                 </label>
               </div>
