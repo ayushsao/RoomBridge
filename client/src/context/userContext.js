@@ -3,7 +3,7 @@ import axiosInstance from "../api/axiosInstance";
 
 export const UserContext = createContext();
 
-const base = "https://roombridge-server.vercel.app";
+const base = "https://roombridge-production.up.railway.app";
 
 export const UserContextWrapper = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
