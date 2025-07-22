@@ -23,7 +23,7 @@ export default function Services() {
         </h2>
         <div className="container mx-auto grid grid-cols-1 justify-items-center sm:grid-cols-3 sm:gap-x-36 sm:gap-y-10 gap-y-4">
           <ToolsCard
-            className="card bhopal-featured"
+            className="card roombridge-featured"
             src={BhopalImage}
             title={"Bhopal"}
             subtitle={"Available Now! 🎯"}

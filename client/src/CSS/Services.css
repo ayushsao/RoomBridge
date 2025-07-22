@@ -62,13 +62,13 @@
   box-shadow: 0px 10px 0px 0px;
 }
 
-/* Bhopal Featured Card Styling */
-.bhopal-featured {
+/* RoomBridge Featured Card Styling */
+.roombridge-featured {
   position: relative;
   overflow: visible;
 }
 
-.bhopal-featured::before {
+.roombridge-featured::before {
   content: "⭐ FEATURED";
   position: absolute;
   top: -10px;
@@ -83,12 +83,12 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-.bhopal-featured #singleCardTool {
+.roombridge-featured #singleCardTool {
   border: 2px solid #10b981 !important;
   box-shadow: 0px 5px 0px 0px #10b981 !important;
 }
 
-.bhopal-featured #singleCardTool:hover {
+.roombridge-featured #singleCardTool:hover {
   transform: scale(1.08);
   box-shadow: 0px 12px 0px 0px #10b981 !important;
 }

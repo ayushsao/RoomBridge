@@ -237,9 +237,8 @@ export default function TopNavbar() {
                   style={{ color: "black" }}
                   className="font-extrabold text-2xl text-black text-inherit align-middle"
                 >
-                  Bhopal
+                  RoomBridge
                   <img src={MapIcon} alt="map" className="inline-block ml-1" />
-                  Nest
                 </span>
               </div>
             </Link>
