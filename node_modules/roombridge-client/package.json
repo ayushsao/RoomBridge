@@ -1,0 +1,80 @@
+{
+  "name": "roombridge-client",
+  "version": "1.0.0",
+  "description": "RoomBridge - Smart Housing Platform",
+  "private": true,
+  "dependencies": {
+    "@craco/craco": "^7.1.0",
+    "@headlessui/react": "^2.0.4",
+    "@heroicons/react": "^2.1.3",
+    "@nextui-org/react": "^2.2.9",
+    "@orbs-network/ton-access": "^2.3.3",
+    "@radix-ui/react-icons": "^1.3.0",
+    "@tabler/icons-react": "^2.47.0",
+    "@telegram-auth/react": "^1.0.3",
+    "@telegram-auth/server": "^1.0.3",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@ton/ton": "^13.11.2",
+    "@tonconnect/ui": "^2.0.3",
+    "@tonconnect/ui-react": "^2.0.3",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.20",
+    "@types/react": "^18.2.58",
+    "@types/react-dom": "^18.2.19",
+    "@vercel/analytics": "^1.2.2",
+    "assert": "^2.1.0",
+    "axios": "^1.7.2",
+    "buffer": "^6.0.3",
+    "clsx": "^2.1.0",
+    "crypto": "^1.0.1",
+    "crypto-browserify": "^3.12.0",
+    "crypto-js": "=4.1.1",
+    "framer-motion": "^11.0.6",
+    "iconify": "^1.4.0",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "react": "^18.2.0",
+    "react-datepicker": "^6.9.0",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
+    "react-lottie": "^1.2.4",
+    "react-router-dom": "^6.22.3",
+    "react-scripts": "^5.0.1",
+    "stream-browserify": "^3.0.0",
+    "tailwind-merge": "^2.2.1",
+    "util": "^0.12.5",
+    "web-vitals": "^2.1.4"
+  },
+  "author": "RoomBridge Team <support@roombridge.com> (https://roombridge.com)",
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@iconify/react": "^4.1.1",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^4.9.5"
+  }
+}

@@ -66,19 +66,6 @@ npm install
 
 Create `.env` files in both `server` and `client` directories:
 
-#### Server (.env)
-```env
-PORT=5000
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-TELEGRAM_BOT_TOKEN=your_telegram_bot_token
-```
-
-#### Client (.env)
-```env
-REACT_APP_API_URL=http://localhost:5000
-REACT_APP_TELEGRAM_BOT_USERNAME=your_bot_username
-```
 
 ## 🏃‍♂️ Running the Application
 

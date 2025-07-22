@@ -1,0 +1,113 @@
+[
+    {
+      "username": "john_doe",
+      "email": "john_doe@example.com",
+      "password": "password123",
+      "full_name": "John Doe",
+      "mobile_number": "1234567890",
+      "gender": "Male",
+      "date_of_birth": "1990-01-01",
+      "profile_picture_url": "http://example.com/profile/john.jpg",
+      "bio": "Bio of John Doe"
+    },
+    {
+      "username": "jane_doe",
+      "email": "jane_doe@example.com",
+      "password": "password123",
+      "full_name": "Jane Doe",
+      "mobile_number": "0987654321",
+      "gender": "Female",
+      "date_of_birth": "1992-02-02",
+      "profile_picture_url": "http://example.com/profile/jane.jpg",
+      "bio": "Bio of Jane Doe"
+    },
+    {
+      "username": "alice_smith",
+      "email": "alice_smith@example.com",
+      "password": "password123",
+      "full_name": "Alice Smith",
+      "mobile_number": "1122334455",
+      "gender": "Female",
+      "date_of_birth": "1994-03-03",
+      "profile_picture_url": "http://example.com/profile/alice.jpg",
+      "bio": "Bio of Alice Smith"
+    },
+    {
+      "username": "bob_jones",
+      "email": "bob_jones@example.com",
+      "password": "password123",
+      "full_name": "Bob Jones",
+      "mobile_number": "2233445566",
+      "gender": "Male",
+      "date_of_birth": "1988-04-04",
+      "profile_picture_url": "http://example.com/profile/bob.jpg",
+      "bio": "Bio of Bob Jones"
+    },
+    {
+      "username": "charlie_brown",
+      "email": "charlie_brown@example.com",
+      "password": "password123",
+      "full_name": "Charlie Brown",
+      "mobile_number": "3344556677",
+      "gender": "Male",
+      "date_of_birth": "1991-05-05",
+      "profile_picture_url": "http://example.com/profile/charlie.jpg",
+      "bio": "Bio of Charlie Brown"
+    },
+    {
+      "username": "daisy_ridley",
+      "email": "daisy_ridley@example.com",
+      "password": "password123",
+      "full_name": "Daisy Ridley",
+      "mobile_number": "4455667788",
+      "gender": "Female",
+      "date_of_birth": "1993-06-06",
+      "profile_picture_url": "http://example.com/profile/daisy.jpg",
+      "bio": "Bio of Daisy Ridley"
+    },
+    {
+      "username": "edward_snow",
+      "email": "edward_snow@example.com",
+      "password": "password123",
+      "full_name": "Edward Snow",
+      "mobile_number": "5566778899",
+      "gender": "Male",
+      "date_of_birth": "1985-07-07",
+      "profile_picture_url": "http://example.com/profile/edward.jpg",
+      "bio": "Bio of Edward Snow"
+    },
+    {
+      "username": "fiona_glenanne",
+      "email": "fiona_glenanne@example.com",
+      "password": "password123",
+      "full_name": "Fiona Glenanne",
+      "mobile_number": "6677889900",
+      "gender": "Female",
+      "date_of_birth": "1989-08-08",
+      "profile_picture_url": "http://example.com/profile/fiona.jpg",
+      "bio": "Bio of Fiona Glenanne"
+    },
+    {
+      "username": "george_bluth",
+      "email": "george_bluth@example.com",
+      "password": "password123",
+      "full_name": "George Bluth",
+      "mobile_number": "7788990011",
+      "gender": "Male",
+      "date_of_birth": "1965-09-09",
+      "profile_picture_url": "http://example.com/profile/george.jpg",
+      "bio": "Bio of George Bluth"
+    },
+    {
+      "username": "hannah_baker",
+      "email": "hannah_baker@example.com",
+      "password": "password123",
+      "full_name": "Hannah Baker",
+      "mobile_number": "8899001122",
+      "gender": "Female",
+      "date_of_birth": "1995-10-10",
+      "profile_picture_url": "http://example.com/profile/hannah.jpg",
+      "bio": "Bio of Hannah Baker"
+    }
+  ]
+  

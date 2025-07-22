@@ -1,0 +1,31 @@
+{
+  "name": "roombridge-server",
+  "version": "1.0.0",
+  "description": "RoomBridge Backend - Smart Housing Platform API",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": ["housing", "accommodation", "smart-platform", "blockchain", "ton", "room-sharing"],
+  "author": "RoomBridge Team <support@roombridge.com> (https://roombridge.com)",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.3.4",
+    "telegraf": "^4.16.3",
+    "validator": "^13.12.0"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.7",
+    "@types/validator": "^13.11.10",
+    "nodemon": "^3.1.0"
+  }
+}
