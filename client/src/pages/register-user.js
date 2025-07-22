@@ -4,6 +4,7 @@ import { useTonConnect } from "../hooks/useTonConnect";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import axiosInstance from "../api/axiosInstance";
 import avatar1 from "../lib/img/avatar1.avif";
 import avatar2 from "../lib/img/avatar2.avif";
 import avatar3 from "../lib/img/avatar3.avif";
@@ -94,6 +95,15 @@ const RegisterUser = () => {
     let id = toast.loading("Registering...");
     e.preventDefault();
 
+    // Test connection first
+    try {
+      console.log("Testing connection to backend...");
+      const testResponse = await axiosInstance.get('/api/v1/test-connection');
+      console.log("Connection test successful:", testResponse);
+    } catch (testError) {
+      console.log("Connection test failed, but proceeding anyway:", testError.message);
+    }
+
     // Form validation
     if (!formData.fullName.trim()) {
       toast.error("Full name is required", { id });
@@ -149,22 +159,21 @@ const RegisterUser = () => {
       };
       
       console.log("Sending data:", transformedData);
+      console.log("Making request to:", axiosInstance.defaults.baseURL + "/api/v1/user/register");
       
-      const response = await fetch(
-        "http://localhost:8000/api/v1/user/register",
+      const response = await axiosInstance.post(
+        "/api/v1/user/register",
+        transformedData,
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(transformedData),
+          timeout: 10000, // 10 second timeout
         }
       );
 
-      const data = await response.json();
-      console.log("Response:", data);
+      console.log("Raw response:", response);
+      const data = response.data;
+      console.log("Response data:", data);
 
-      if (response.ok && data.success) {
+      if (data.success) {
         localStorage.setItem("token", data.token);
         
         setFormData({
@@ -190,8 +199,30 @@ const RegisterUser = () => {
         console.error("Registration error:", data);
       }
     } catch (error) {
-      console.error("Network error:", error);
-      toast.error("Network error. Please check your connection and try again.", { id });
+      console.error("Full error object:", error);
+      console.error("Error name:", error.name);
+      console.error("Error message:", error.message);
+      console.error("Error config:", error.config);
+      
+      if (error.response) {
+        // Server responded with error status
+        console.error("Error response status:", error.response.status);
+        console.error("Error response data:", error.response.data);
+        console.error("Error response headers:", error.response.headers);
+        const errorMessage = error.response.data?.message || error.response.data?.error || "Registration failed";
+        toast.error(errorMessage, { id });
+      } else if (error.request) {
+        // Request was made but no response received
+        console.error("Error request:", error.request);
+        console.error("Request readyState:", error.request.readyState);
+        console.error("Request status:", error.request.status);
+        console.error("Request statusText:", error.request.statusText);
+        toast.error("Cannot connect to server. Please check if the server is running.", { id });
+      } else {
+        // Something else happened
+        console.error("Error setting up request:", error.message);
+        toast.error("Network error. Please check your connection and try again.", { id });
+      }
     }
   };
 

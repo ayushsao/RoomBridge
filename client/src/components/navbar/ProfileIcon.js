@@ -9,7 +9,7 @@ const ProfileIcon = () => {
 
   const {user,setIsLogin}=useContext(UserContext);
 
-  console.log(user,"topnaves")
+  console.log("ProfileIcon user data:", user);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -43,25 +43,17 @@ const ProfileIcon = () => {
           src={user?.profile_picture_url || "https://tailwindcss.com/img/erin-lindford.jpg"}
           alt="User dropdown"
         />
-        <div className="hidden md:flex flex-col">
+        <div className="hidden md:block">
           <span className="text-sm font-medium text-gray-900">
             {user?.full_name || "User"}
-          </span>
-          <span className="text-xs text-gray-500">
-            @{user?.username || "username"}
           </span>
         </div>
       </div>
       {isOpen && (
         <div
           id="userDropdown"
-          className="z-10 absolute -translate-x-36 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+          className="z-10 absolute right-0 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
         >
-          <div className="px-4 py-3 text-sm text-gray-900 dark:text-white border-b border-gray-200">
-            <div className="font-semibold">{user?.full_name || "Loading..."}</div>
-            <div className="text-gray-500 truncate">@{user?.username || "loading"}</div>
-            <div className="font-medium truncate text-xs text-gray-400">{user?.email || "loading@example.com"}</div>
-          </div>
           <ul
             className="py-2 text-sm text-gray-700 dark:text-gray-200"
             aria-labelledby="avatarButton"

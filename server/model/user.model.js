@@ -54,8 +54,10 @@ userSchema.methods.matchPassword = async function(enteredPassword) {
 };
 
 userSchema.methods.getSignedJwtToken = function() {
-  const expiresIn = process.env.JWT_COOKIE_EXPIRES_IN + 'd'; // Add 'd' for days
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, { expiresIn });
+  const jwtSecret = process.env.JWT_SECRET || 'roombridge_2025_secure_jwt_token_housing_platform';
+  const expiresIn = (process.env.JWT_COOKIE_EXPIRES_IN || 7) + 'd'; // Add 'd' for days
+  console.log('JWT_SECRET available:', !!jwtSecret); // Debug log
+  return jwt.sign({ id: this._id }, jwtSecret, { expiresIn });
 };
 
 

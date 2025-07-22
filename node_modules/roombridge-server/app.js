@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 const corsOptions = {
-  origin: ['https://roombridge.vercel.app', 'http://localhost:3000'],  // Add your frontend domain and localhost
+  origin: ['https://roombridge.vercel.app', 'http://localhost:3000', 'http://localhost:3001'],  // Add your frontend domain and localhost
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,  // Enable if you're using cookies/sessions

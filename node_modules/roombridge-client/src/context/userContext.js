@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import axiosInstance from "../api/axiosInstance";
 
 export const UserContext = createContext();
 
@@ -11,23 +12,31 @@ export const UserContextWrapper = ({ children }) => {
 
   useEffect(() => {
     const checkLoginStatus = async () => {
-      if (localStorage.getItem("token")) {
+      const storedToken = localStorage.getItem("token");
+      
+      if (storedToken) {
         setIsLogin(true);
+        setToken(storedToken);
+        
         try {
-          let tokenHere = localStorage.getItem("token");
-          console.log(tokenHere, "tokenHere");
-
-          if (tokenHere) {
-            setToken(tokenHere);
-            const userProfile = await fetchUserProfile(tokenHere);
-            console.log(userProfile, "userProfile");
-            setUser(userProfile);
-          }
+          console.log("Fetching user profile with token:", storedToken);
+          const userProfile = await fetchUserProfile(storedToken);
+          console.log("User profile fetched successfully:", userProfile);
+          setUser(userProfile);
         } catch (error) {
           console.error("Error fetching user profile:", error);
+          // If token is invalid, clear it
+          if (error.message.includes('401') || error.message.includes('unauthorized')) {
+            localStorage.removeItem("token");
+            setIsLogin(false);
+            setToken("");
+            setUser(null);
+          }
         }
       } else {
         setIsLogin(false);
+        setToken("");
+        setUser(null);
       }
     };
 
@@ -36,19 +45,24 @@ export const UserContextWrapper = ({ children }) => {
 
   const fetchUserProfile = async (token) => {
     try {
-      const response = await fetch(`${base}/api/v1/user/profile`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (!response.ok) {
-        throw new Error("Failed to fetch user profile");
+      console.log("Making request to:", `/api/v1/user/profile`);
+      
+      // Temporarily set the token in localStorage if not already set
+      if (!localStorage.getItem('token')) {
+        localStorage.setItem('token', token);
       }
-      const { data } = await response.json();
-      console.log(data, "inside context");
-      return data;
+      
+      const response = await axiosInstance.get('/api/v1/user/profile');
+      
+      console.log("Full API response:", response.data);
+      
+      if (response.data.success && response.data.data) {
+        return response.data.data;
+      } else {
+        throw new Error("Invalid response format");
+      }
     } catch (error) {
+      console.error("Fetch error:", error);
       throw error;
     }
   };
