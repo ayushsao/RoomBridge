@@ -16,13 +16,13 @@ export const login = async (email, password) => {
     console.log(response);
     if (response.data.success) {
       localStorage.setItem("token", response.data.token);
-      }
-    else {
-        return {success: false, error: response.data.error};
+      return { success: true, data: response.data };
+    } else {
+      return { success: false, error: response.data.message || "Login failed" };
     }
-    return { success: true, data: response.data };
   } catch (error) {
     console.error("Login failed:", error);
-    return { success: false, error: error.message };
+    const errorMessage = error.response?.data?.message || error.message || "Login failed";
+    return { success: false, error: errorMessage };
   }
 };

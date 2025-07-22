@@ -63,34 +63,40 @@ export const registerUser = async (req, res, next) => {
   }
 };
 export const loginUser = async (req, res, next) => {
-    const { email, password } = req.body;
-  
-    // Check if email and password were provided
-    if (!email || !password) {
-      return next(new ErrorHandler(400, 'Please provide email and password'));
+  const { email, password } = req.body;
+
+  // Check if email and password were provided
+  if (!email || !password) {
+    return next(new ErrorHandler(400, 'Please provide email and password'));
+  }
+
+  try {
+    // Find user by email and explicitly select password_hash
+    const user = await User.findOne({ email }).select('+password_hash');
+
+    if (!user) {
+      return next(new ErrorHandler(401, 'Invalid email or password'));
     }
-  
-    try {
-      // Find user by email
-      const user = await User.findOne({ email }).select('+password_hash');
-  
-      if (!user) {
-        return next(new ErrorHandler(401, 'Invalid email or password'));
-      }
-  
-      // Check if password matches
-      const isMatch = await user.matchPassword(password);
-  
-      if (!isMatch) {
-        return next(new ErrorHandler(401, 'Invalid email or password'));
-      }
-  
-      // If matched, send token response
-      sendTokenResponse(user, 200, res);
-    } catch (error) {
-      next(error);
+
+    // Check if password_hash exists
+    if (!user.password_hash) {
+      return next(new ErrorHandler(500, 'User password not found'));
     }
-  };
+
+    // Check if password matches
+    const isMatch = await user.matchPassword(password);
+
+    if (!isMatch) {
+      return next(new ErrorHandler(401, 'Invalid email or password'));
+    }
+
+    // If matched, send token response
+    sendTokenResponse(user, 200, res);
+  } catch (error) {
+    console.error("Login error:", error);
+    next(error);
+  }
+};
 
   export const logoutUser = async (req, res, next) => {
     try {

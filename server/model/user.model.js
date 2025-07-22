@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     validate: [validator.isEmail, "Please enter a valid email address"],
   },
-  password_hash: { type: String, required: true },
+  password_hash: { type: String, required: true, select: false },
   full_name: { type: String, required: true },
   mobile_number: { type: String, required: true },
   mobile_visibility: { type: Boolean, default: true },

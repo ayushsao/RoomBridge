@@ -9,16 +9,44 @@ const LoginUser = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await handleLogin();
+  };
+
   const handleLogin = async () => {
+    // Validation
+    if (!email.trim()) {
+      toast.error("Please enter your email");
+      return;
+    }
+    
+    if (!password.trim()) {
+      toast.error("Please enter your password");
+      return;
+    }
+
+    if (!email.includes("@")) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
     let id = toast.loading("Logging in...");
-    const response = await login(email, password);
-    if (response.success) {
-      console.log("Login successful");
-      toast.success("Login successful", { id });
-      navigate("/events");
-    } else {
-      toast.error("Login failed", { id });
-      console.log("Login failed:", response.error);
+    
+    try {
+      const response = await login(email.trim().toLowerCase(), password);
+      
+      if (response.success) {
+        console.log("Login successful");
+        toast.success("Login successful", { id });
+        navigate("/");
+      } else {
+        toast.error(response.error || "Login failed", { id });
+        console.log("Login failed:", response.error);
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("An error occurred. Please try again.", { id });
     }
   };
 
@@ -36,55 +64,59 @@ const LoginUser = () => {
             </p>
           </div>
 
-          <div className="space-y-4 px-8 py-4">
-            <label className="block" htmlFor="email">
-              <p className="text-gray-600">Email</p>
-              <input
-                className="w-full mt-2 rounded-md border bg-white px-2 py-3 outline-none ring-[#FE797A] focus:ring-1"
-                type="email"
-                placeholder="you@example.com"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </label>
+          <form onSubmit={handleSubmit}>
+            <div className="space-y-4 px-8 py-4">
+              <label className="block" htmlFor="email">
+                <p className="text-gray-600">Email</p>
+                <input
+                  className="w-full mt-2 rounded-md border bg-white px-2 py-3 outline-none ring-[#FE797A] focus:ring-1"
+                  type="email"
+                  placeholder="you@example.com"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </label>
 
-            <label className="block" htmlFor="password">
-              <p className="text-gray-600">Password</p>
-              <input
-                className="w-full mt-2 rounded-md border bg-white px-2 py-3 outline-none ring-[#FE797A] focus:ring-1"
-                type="password"
-                placeholder="********"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </label>
+              <label className="block" htmlFor="password">
+                <p className="text-gray-600">Password</p>
+                <input
+                  className="w-full mt-2 rounded-md border bg-white px-2 py-3 outline-none ring-[#FE797A] focus:ring-1"
+                  type="password"
+                  placeholder="********"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </label>
 
-            <Button
-              style={{
-                border: "1px solid #1a202c",
-                marginBottom: "20px",
-                marginTop: "20px",
-              }}
-              variant="bordered"
-              className="shadow-[0px_3px_0px_0px_#1a202c] w-full py-3 mt-8 uppercase"
-              onClick={handleLogin}
-            >
-              Login
-            </Button>
+              <Button
+                style={{
+                  border: "1px solid #1a202c",
+                  marginBottom: "20px",
+                  marginTop: "20px",
+                }}
+                variant="bordered"
+                className="shadow-[0px_3px_0px_0px_#1a202c] w-full py-3 mt-8 uppercase"
+                type="submit"
+              >
+                Login
+              </Button>
 
-            <div className="text-center my-4">or</div>
+              <div className="text-center my-4">or</div>
 
-            {/* <LoginButton
-              botUsername="kamra_of_rakesh_bot"
-              authCallbackUrl="https://roombridge.vercel.app/telegram-auth-callback"
-              buttonSize="large"
-              cornerRadius={5}
-              showAvatar={true}
-              lang="en"
-            /> */}
-          </div>
+              {/* <LoginButton
+                botUsername="kamra_of_rakesh_bot"
+                authCallbackUrl="https://roombridge.vercel.app/telegram-auth-callback"
+                buttonSize="large"
+                cornerRadius={5}
+                showAvatar={true}
+                lang="en"
+              /> */}
+            </div>
+          </form>
         </div>
       </div>
     </>

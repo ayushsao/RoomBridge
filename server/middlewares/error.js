@@ -27,6 +27,7 @@ export const handleError = (err, req, res, next) => {
     } else {
         res.status(statusCode).json({
             success: false,
+            message: err.message || "Internal Server Error",
             error: err,
             errorMessage: err.message,
             stack: err.stack
